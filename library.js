@@ -33,7 +33,7 @@ twoWayBlock.list = async function(uid) {
 		return cache.get(parseInt(uid, 10));
 	}
 	let blocked_by = await db.getSortedSetRange('uid:' + uid + ':blocked_by_uids', 0, -1);
-	blocked_by = blocked.map(uid => parseInt(uid, 10)).filter(Boolean);
+	blocked_by = blocked_by.map(uid => parseInt(uid, 10)).filter(Boolean);
 	cache.set(parseInt(uid, 10), blocked_by);
 	return blocked_by;
 }
