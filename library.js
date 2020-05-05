@@ -25,7 +25,7 @@ twoWayBlock.removeBlock = async function(data) {
 twoWayBlock.filterBlocks = async function (data) {
 	let { set, property, uid } = data;
 	const blocked_by_uids =await twoWayBlock.list(uid);
-	const blockedSet = Set(blocked_by_uids);
+	const blockedSet = new Set(blocked_by_uids);
 	const isPlain = typeof set[0] !== "object";
     set = set.filter(function (item) {
         return !blockedSet.has(parseInt(isPlain ? item : item[property], 10));
