@@ -12,16 +12,20 @@ const cache = new LRU({
 twoWayBlock.init = async function (data) {
 	return;
 };
-twoWayBlock.addBlock = async function ({uid, targetUid}) {
+twoWayBlock.addBlock = async function (data) {
+	const {uid, targetUid} = data;
 	await db.sortedSetAdd(`uid:${targetUid}:blocked_by_uids`, Date.now(), uid);
 	cache.del(parseInt(targetUid, 10));
 }
-twoWayBlock.removeBlock = async function({uid, targetUid}) {
+twoWayBlock.removeBlock = async function(data) {
+	const {uid, targetUid} = data
 	await db.sortedSetRemove(`uid:${targetUid}:blocked_by_uids`, uid);
 	cache.del(parseInt(targetUid, 10));
 }
-twoWayBlock.filterBlocks = async function ({ set, property, uid, blockedSet }) {
-	
+twoWayBlock.filterBlocks = async function (data) {
+	let { set, property, uid } = data;
+	const blocked_by_uids =await twoWayBlock.list(uid);
+	const blockedSet = Set(blocked_by_uids);
 	const isPlain = typeof set[0] !== "object";
     set = set.filter(function (item) {
         return !blockedSet.has(parseInt(isPlain ? item : item[property], 10));
