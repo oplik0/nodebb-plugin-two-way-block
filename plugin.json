@@ -4,6 +4,9 @@
 	"library": "./library.js",
 	"hooks": [
 		{
+			"hook": "static:app.load", "method": "init"
+		},
+		{
 			"hook":"filter:post.getPosts", "method": "filterBlocks"
 		},
 		{

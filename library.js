@@ -12,6 +12,9 @@ const cache = new LRU({
 			length: function () { return 1; },
 			maxAge: 0,
 		})
+twoWayBlock.init = async function (data) {
+	return;
+};
 twoWayBlock.addBlock = async function ({uid, targetUid}) {
 	await db.sortedSetAdd(`uid:${targetUid}:blocked_by_uids`, Date.now(), uid);
 	cache.del(parseInt(targetUid, 10));
