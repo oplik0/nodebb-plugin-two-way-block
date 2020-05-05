@@ -1,8 +1,6 @@
 'use strict';
 const LRU = require("lru-cache");
 
-const winston = require.main.require('winston');
-const meta = require.main.require('./src/meta');
 const db = require.main.require('./src/database');
 
 const twoWayBlock = {};
