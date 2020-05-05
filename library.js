@@ -24,7 +24,7 @@ twoWayBlock.filterBlocks = async function ({uid, posts}) {
 	const blocked_uids = await twoWayBlock.list(uid);
 	const blockedSet = new Set(blocked_uids);
 	posts = posts.filter(function (item) {
-        return !blockedSet.has(parseInt(isPlain ? item : item[property], 10));
+        return !blockedSet.has(parseInt(item[uid], 10));
 	});
 	return {uid, posts};
 }
