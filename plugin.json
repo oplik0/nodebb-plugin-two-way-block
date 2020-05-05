@@ -7,7 +7,7 @@
 			"hook": "static:app.load", "method": "init"
 		},
 		{
-			"hook":"filter:post.getPosts", "method": "filterBlocks"
+			"hook":"filter:user.block.filter", "method": "filterBlocks"
 		},
 		{
 			"hook":"action:user.block.add", "method": "addBlock"
