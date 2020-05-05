@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-two-way-block",
-  "version": "1.0.5",
+  "version": "1.0.0",
   "description": "Blocking a user hides your posts from them too",
   "main": "library.js",
   "repository": {

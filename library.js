@@ -20,7 +20,7 @@ twoWayBlock.removeBlock = async function({uid, targetUid}) {
 	await db.sortedSetRemove(`uid:${targetUid}:blocked_by_uids`, uid);
 	cache.del(parseInt(targetUid, 10));
 }
-twoWayBlock.filterBlocks = async function ({ set: set, property: property, uid: uid, blockedSet: blockedSet }) {
+twoWayBlock.filterBlocks = async function ({ set, property, uid, blockedSet }) {
 	
 	const isPlain = typeof set[0] !== "object";
     set = set.filter(function (item) {
