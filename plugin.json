@@ -1,0 +1,17 @@
+{
+	"id": "nodebb-plugin-tow-way-block",
+	"url": "https://github.com/oplik0/nodebb-plugin-tow-way-block",
+	"library": "./library.js",
+	"hooks": [
+		{
+			"hook":"filter:post.getPosts", "method": "filterBlocks"
+		},
+		{
+			"hook":"action:user.block.add", "method": "addBlock"
+		},
+		{
+			"hook":"action:user.block.remove", "method":"removeBlock"
+		}
+
+	]
+}
