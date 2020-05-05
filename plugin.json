@@ -1,6 +1,6 @@
 {
-	"id": "nodebb-plugin-tow-way-block",
-	"url": "https://github.com/oplik0/nodebb-plugin-tow-way-block",
+	"id": "nodebb-plugin-two-way-block",
+	"url": "https://github.com/oplik0/nodebb-plugin-two-way-block",
 	"library": "./library.js",
 	"hooks": [
 		{
