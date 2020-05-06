@@ -23,15 +23,15 @@ twoWayBlock.removeBlock = async function(data) {
 	cache.del(parseInt(targetUid, 10));
 }
 twoWayBlock.filterBlocks = async function (data) {
-	let { set, property, uid } = data;
+	const { set, property, uid } = data;
 	const blocked_by_uids =await twoWayBlock.list(uid);
 	const blockedSet = new Set(blocked_by_uids);
 	const isPlain = typeof set[0] !== "object";
-    set = set.filter(function (item) {
+    data.set = set.filter(function (item) {
         return !blockedSet.has(parseInt(isPlain ? item : item[property], 10));
     });
 
-    return set;
+    return data;
 }
 twoWayBlock.list = async function(uid) {
 	if (cache.has(parseInt(uid, 10))) {
