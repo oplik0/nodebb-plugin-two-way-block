@@ -7,16 +7,16 @@
 			"hook": "static:app.load", "method": "init"
 		},
 		{
-			"hook":"filter:user.block.filter", "method": "filterBlocks"
+			"hook":"filter:user.blocks.filter", "method": "filterBlocks"
 		},
 		{
-			"hook":"action:user.block.add", "method": "addBlock"
-		},
-		{
-			"hook":"action:user.block.remove", "method":"removeBlock"
+			"hook":"action:user.blocks.add", "method": "addBlock"
 		},
 		{
 			"hook": "filter:teasers.get", "method": "filterTeasers"
+		},
+		{
+			"hook":"action:user.blocks.remove", "method":"removeBlock"
 		}
 
 	]
