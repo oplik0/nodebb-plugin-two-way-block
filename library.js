@@ -24,12 +24,12 @@ twoWayBlock.removeBlock = async function(data) {
 }
 twoWayBlock.filterBlocks = async function (data) {
 	const { set, property, uid } = data;
-	const blocked_by_uids =await twoWayBlock.list(uid);
+	const blocked_by_uids = await twoWayBlock.list(uid);
 	const blockedSet = new Set(blocked_by_uids);
 	const isPlain = typeof set[0] !== "object";
-    data.set = set.filter(function (item) {
-        return !blockedSet.has(parseInt(isPlain ? item : item[property], 10));
-    });
+    data.set = set.filter(
+		(item) => !blockedSet.has(parseInt(isPlain ? item : item[property], 10))
+	);
 
     return data;
 }
@@ -41,6 +41,15 @@ twoWayBlock.list = async function(uid) {
 	blocked_by = blocked_by.map(uid => parseInt(uid, 10)).filter(Boolean);
 	cache.set(parseInt(uid, 10), blocked_by);
 	return blocked_by;
+}
+
+twoWayBlock.filterTeasers = async function(data) {
+	const blocked_by_uids = await twoWayBlock.list(data.uid);
+	const blockedSet = new Set(blocked_by_uids);
+	data.teasers = data.teasers.filter(
+        (postData) => !blockedSet.has(parseInt(postData.uid, 10))
+	);
+	return data;
 }
 
 module.exports = twoWayBlock;

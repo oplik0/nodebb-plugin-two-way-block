@@ -14,6 +14,9 @@
 		},
 		{
 			"hook":"action:user.block.remove", "method":"removeBlock"
+		},
+		{
+			"hook": "filter:teasers.get", "method": "filterTeasers"
 		}
 
 	]
