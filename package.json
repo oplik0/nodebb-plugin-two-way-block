@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-two-way-block",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Blocking a user hides your posts from them too. This plugin is only compatible with NodeBB versions released **after** 1.13.3 (including master branch)",
   "main": "library.js",
   "repository": {
