@@ -48,11 +48,12 @@ twoWayBlock.list = async function(uid) {
 twoWayBlock.filterTeasers = async function(data) {
 	try {
 		const blocked_by_uids = await twoWayBlock.list(data.uid);
-		const blockedSet = new Set(blocked_by_uids);
+		const blockedSet = new Set([...blocked_by_uids, ...data.blockedSet]);
 		data.teasers = await Promise.all(data.teasers.map(
 			(postData) => (blockedSet.has(parseInt(postData.uid, 10)) ? 
 				getPreviousNonBlockedPost(postData, blockedSet) :
-				(async () => postData)())
+				postData
+			)
 		));
 	} catch (e) {
 		if (!(e instanceof TypeError))
