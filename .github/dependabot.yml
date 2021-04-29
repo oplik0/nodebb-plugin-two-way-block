@@ -1,0 +1,20 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "10:00"
+    timezone: Europe/Warsaw
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@commitlint/cli"
+    versions:
+    - 12.0.0
+    - 12.0.1
+  - dependency-name: "@commitlint/config-angular"
+    versions:
+    - 12.0.0
+  - dependency-name: husky
+    versions:
+    - 5.0.9
