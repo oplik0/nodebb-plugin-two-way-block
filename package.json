@@ -38,7 +38,7 @@
     "compatibility": "^1.13.3"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
+    "@commitlint/cli": "^14.1.0",
     "@commitlint/config-angular": "^13.2.0",
     "eslint": "^8.0.1",
     "eslint-config-airbnb-base": "^15.0.0",
