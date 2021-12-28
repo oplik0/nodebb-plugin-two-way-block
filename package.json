@@ -24,6 +24,9 @@
             "git add"
         ]
     },
+    "scripts": {
+        "prepare": "husky install"
+    },
     "author": {
         "name": "opliko",
         "email": "opliko.reg+npm@protonmail.com",
