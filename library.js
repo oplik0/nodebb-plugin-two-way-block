@@ -54,11 +54,13 @@ twoWayBlock.filterTeasers = async function (data) {
 	try {
 		const blocked_by_uids = await twoWayBlock.list(data.uid);
 		const blockedSet = new Set(blocked_by_uids);
-		data.teasers = await Promise.all(
-			data.teasers.map(postData => (blockedSet.has(parseInt(postData.uid, 10)) ?
-				getPreviousNonBlockedPost(postData, blockedSet) :
-				postData))
-		);
+		if (data.teasers && data.teasers.length > 0) {
+			data.teasers = await Promise.all(
+				data.teasers.map(postData => (blockedSet.has(parseInt(postData.uid, 10)) ?
+					getPreviousNonBlockedPost(postData, blockedSet) :
+					postData))
+			);
+		}
 	} catch (e) {
 		winston.error(
 			`[nodebb-plugin-two-way-block] encountered an error while processing teasers: ${e.stack}`
@@ -106,7 +108,6 @@ async function getPreviousNonBlockedPost(postData, blockedSet) {
 		start += postsPerIteration;
 		stop = start + postsPerIteration - 1;
 	} while (isBlocked && prevPost && prevPost.pid && !checkedAllReplies);
-
 	return prevPost;
 }
 
