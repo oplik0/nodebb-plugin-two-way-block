@@ -4,6 +4,7 @@ const LRU = require('lru-cache');
 
 const db = require.main.require('./src/database');
 const posts = require.main.require('./src/posts');
+const user = require.main.require('./src/user');
 const topics = require.main.require('./src/topics');
 const winston = require.main.require('winston');
 
@@ -108,6 +109,7 @@ async function getPreviousNonBlockedPost(postData, blockedSet) {
 		start += postsPerIteration;
 		stop = start + postsPerIteration - 1;
 	} while (isBlocked && prevPost && prevPost.pid && !checkedAllReplies);
+	prevPost.user = await user.getUserFields(prevPost.uid, ['uid', 'username', 'userslug', 'picture']);
 	return prevPost;
 }
 
