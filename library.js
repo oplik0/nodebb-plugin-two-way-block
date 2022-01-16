@@ -57,7 +57,7 @@ twoWayBlock.filterTeasers = async function (data) {
 		const blockedSet = new Set(blocked_by_uids);
 		if (data.teasers && data.teasers.length > 0) {
 			data.teasers = await Promise.all(
-				data.teasers.map(postData => (blockedSet.has(parseInt(postData.uid, 10)) ?
+				data.teasers.map(postData => (blockedSet.has(parseInt(postData.user.uid, 10)) ?
 					getPreviousNonBlockedPost(postData, blockedSet) :
 					postData))
 			);
