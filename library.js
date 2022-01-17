@@ -56,14 +56,14 @@ twoWayBlock.filterTeasers = async function (data) {
 		const blocked_by_uids = await twoWayBlock.list(data.uid);
 		const blockedSet = new Set(blocked_by_uids);
 		if (data.teasers && data.teasers.length > 0) {
-			data.teasers = (await Promise.all(
+			data.teasers = await Promise.all(
 				data.teasers.map((postData) => {
 					if (!postData) return undefined;
 					return blockedSet.has(parseInt(postData.user ? postData.user.uid : postData.uid, 10)) ?
-						getPreviousNonBlockedPost(postData, blockedSet, data.uid) :
+						getPreviousNonBlockedPost(postData, blockedSet) :
 						postData;
 				})
-			)).filter(postData => postData !== undefined);
+			)
 		}
 	} catch (e) {
 		winston.error(
@@ -75,7 +75,7 @@ twoWayBlock.filterTeasers = async function (data) {
 	}
 	return data;
 };
-async function getPreviousNonBlockedPost(postData, blockedSet, uid) {
+async function getPreviousNonBlockedPost(postData, blockedSet) {
 	let isBlocked = false;
 	let prevPost = postData;
 	const postsPerIteration = 5;
