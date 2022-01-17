@@ -63,7 +63,7 @@ twoWayBlock.filterTeasers = async function (data) {
 						getPreviousNonBlockedPost(postData, blockedSet) :
 						postData;
 				})
-			)
+			);
 		}
 	} catch (e) {
 		winston.error(
