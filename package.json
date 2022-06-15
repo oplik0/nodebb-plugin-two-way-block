@@ -1,52 +1,52 @@
 {
-    "name": "nodebb-plugin-two-way-block",
-    "version": "1.4.4",
-    "description": "Blocking a user hides your posts from them too. This plugin is only compatible with NodeBB versions released **after** 1.13.3 (including master branch)",
-    "main": "library.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/oplik0/nodebb-plugin-two-way-block"
-    },
-    "keywords": [
-        "nodebb",
-        "plugin",
-        "block"
-    ],
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged",
-            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-        }
-    },
-    "lint-staged": {
-        "*.js": [
-            "eslint --fix",
-            "git add"
-        ]
-    },
-    "scripts": {
-        "prepare": "husky install"
-    },
-    "author": {
-        "name": "opliko",
-        "email": "opliko.reg+npm@protonmail.com",
-        "url": "https://wieloswiat.pl"
-    },
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/oplik0/nodebb-plugin-two-way-block/issues"
-    },
-    "readmeFilename": "README.md",
-    "nbbpm": {
-        "compatibility": "^1.18.0"
-    },
-    "devDependencies": {
-        "@commitlint/cli": "^16.0.0",
-        "@commitlint/config-angular": "^16.0.0",
-        "eslint": "^8.0.1",
-        "eslint-config-nodebb": "^0.1.1",
-        "eslint-plugin-import": "^2.15.0",
-        "husky": "^7.0.0",
-        "lint-staged": "^12.0.2"
-    }
+	"name": "nodebb-plugin-two-way-block",
+	"version": "1.4.5",
+	"description": "Blocking a user hides your posts from them too. This plugin is only compatible with NodeBB versions released **after** 1.13.3 (including master branch)",
+	"main": "library.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/oplik0/nodebb-plugin-two-way-block"
+	},
+	"keywords": [
+		"nodebb",
+		"plugin",
+		"block"
+	],
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged",
+			"commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+		}
+	},
+	"lint-staged": {
+		"*.js": [
+			"eslint --fix",
+			"git add"
+		]
+	},
+	"scripts": {
+		"prepare": "husky install"
+	},
+	"author": {
+		"name": "opliko",
+		"email": "opliko.reg+npm@protonmail.com",
+		"url": "https://wieloswiat.pl"
+	},
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/oplik0/nodebb-plugin-two-way-block/issues"
+	},
+	"readmeFilename": "README.md",
+	"nbbpm": {
+		"compatibility": "^1.18.0 || ^2.0.0"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^17.0.2",
+		"@commitlint/config-angular": "^17.0.0",
+		"eslint": "^8.0.1",
+		"eslint-config-nodebb": "^0.1.1",
+		"eslint-plugin-import": "^2.15.0",
+		"husky": "^8.0.1",
+		"lint-staged": "^13.0.1"
+	}
 }
