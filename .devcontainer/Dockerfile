@@ -5,13 +5,13 @@ FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 USER node
 
 # Install MongoDB command line tools if on buster and x86_64 (arm64 not supported)
-ARG MONGO_TOOLS_VERSION=5.0
-RUN sudo apt-get update && export DEBIAN_FRONTEND=noninteractive && sudo apt-get install gnupg &&\
-    wget -qO - https://www.mongodb.org/static/pgp/server-${MONGO_TOOLS_VERSION}.asc | sudo apt-key add - &&\
-    echo "deb [arch=$(dpkg --print-architecture)] http://repo.mongodb.org/apt/debian $(lsb_release -cs)/mongodb-org/${MONGO_TOOLS_VERSION} main" | sudo tee /etc/apt/sources.list.d/mongodb-org-${MONGO_TOOLS_VERSION}.list &&\
-    sudo apt-get update && export DEBIAN_FRONTEND=noninteractive &&\
-    sudo apt-get install -y mongodb-database-tools mongodb-mongosh &&\
-    sudo apt-get clean -y && sudo rm -rf /var/lib/apt/lists/*;
+ARG MONGO_TOOLS_VERSION=6.0
+RUN sudo apt-get update && export DEBIAN_FRONTEND=noninteractive && sudo apt-get install -y gnupg &&\
+	wget -qO - https://www.mongodb.org/static/pgp/server-${MONGO_TOOLS_VERSION}.asc | sudo apt-key add - &&\
+	echo "deb [arch=$(dpkg --print-architecture)] http://repo.mongodb.org/apt/debian $(lsb_release -cs)/mongodb-org/${MONGO_TOOLS_VERSION} main" | sudo tee /etc/apt/sources.list.d/mongodb-org-${MONGO_TOOLS_VERSION}.list &&\
+	sudo apt-get update && export DEBIAN_FRONTEND=noninteractive &&\
+	sudo apt-get install -y mongodb-mongosh &&\
+	sudo apt-get clean -y && sudo rm -rf /var/lib/apt/lists/*;
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
