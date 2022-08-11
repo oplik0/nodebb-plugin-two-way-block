@@ -1,6 +1,6 @@
 'use strict';
 
-const LRU = require('lru-cache');
+const LRU = require.main.require('./src/cacheCreate');
 
 const db = require.main.require('./src/database');
 const posts = require.main.require('./src/posts');
@@ -10,57 +10,57 @@ const winston = require.main.require('winston');
 
 const twoWayBlock = {};
 const cache = new LRU({
-	max: 100,
-	length: function () {
-		return 1;
-	},
-	maxAge: 0,
+	name: 'nodebb-plugin-two-way-block',
+	max: 1024,
+	maxSize: 4096,
+	sizeCalculation: n => n.length || 1,
+	ttl: 1000 * 60 * 60 * 24,
 });
 twoWayBlock.addBlock = async function (data) {
 	const { uid, targetUid } = data;
 	await db.sortedSetAdd(`uid:${targetUid}:blocked_by_uids`, Date.now(), uid);
-	cache.del(parseInt(targetUid, 10));
+	cache.delete(parseInt(targetUid, 10));
 };
 twoWayBlock.removeBlock = async function (data) {
 	const { uid, targetUid } = data;
 	await db.sortedSetRemove(`uid:${targetUid}:blocked_by_uids`, uid);
-	cache.del(parseInt(targetUid, 10));
+	cache.delete(parseInt(targetUid, 10));
 };
 twoWayBlock.filterBlocks = async function (data) {
 	const { set, property, uid } = data;
-	const blocked_by_uids = await twoWayBlock.list(uid);
-	const blockedSet = new Set(blocked_by_uids);
+	const blockedByUids = await twoWayBlock.list(uid);
 	const isPlain = typeof set[0] !== 'object';
 	data.set = set.filter(
-		item => !blockedSet.has(parseInt(isPlain ? item : item[property], 10))
+		item => !blockedByUids.has(parseInt(isPlain ? item : item[property], 10))
 	);
 
 	return data;
 };
 twoWayBlock.list = async function (uid) {
-	if (cache.has(parseInt(uid, 10))) {
-		return cache.get(parseInt(uid, 10));
+	uid = parseInt(uid, 10);
+	const cached = cache.get(uid);
+	if (cached?.length) {
+		return new Set(cached);
 	}
-	let blocked_by = await db.getSortedSetRange(
+	const blockedBy = await db.getSortedSetRange(
 		`uid:${uid}:blocked_by_uids`,
 		0,
 		-1
 	);
-	blocked_by = blocked_by.map(uid => parseInt(uid, 10)).filter(Boolean);
-	cache.set(parseInt(uid, 10), blocked_by);
-	return blocked_by;
+	const blockedBySet = new Set(blockedBy.map(blocked_by_uid => parseInt(blocked_by_uid, 10)).filter(Boolean));
+	cache.set(uid, blockedBySet);
+	return blockedBySet;
 };
 
 twoWayBlock.filterTeasers = async function (data) {
 	try {
-		const blocked_by_uids = await twoWayBlock.list(data.uid);
-		const blockedSet = new Set(blocked_by_uids);
+		const blockedByUids = await twoWayBlock.list(data.uid);
 		if (data.teasers && data.teasers.length > 0) {
 			data.teasers = await Promise.all(
 				data.teasers.map((postData) => {
 					if (!postData) return undefined;
-					return blockedSet.has(parseInt(postData.user ? postData.user.uid : postData.uid, 10)) ?
-						getPreviousNonBlockedPost(postData, blockedSet) :
+					return blockedByUids.has(parseInt(postData.user ? postData.user.uid : postData.uid, 10)) ?
+						getPreviousNonBlockedPost(postData, blockedByUids) :
 						postData;
 				})
 			);
