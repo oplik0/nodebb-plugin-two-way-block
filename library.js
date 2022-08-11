@@ -1,6 +1,6 @@
 'use strict';
 
-const LRU = require.main.require('./src/cacheCreate');
+const createCache = require.main.require('./src/cacheCreate');
 
 const db = require.main.require('./src/database');
 const posts = require.main.require('./src/posts');
@@ -9,7 +9,7 @@ const topics = require.main.require('./src/topics');
 const winston = require.main.require('winston');
 
 const twoWayBlock = {};
-const cache = new LRU({
+const cache = createCache({
 	name: 'nodebb-plugin-two-way-block',
 	max: 1024,
 	maxSize: 4096,
