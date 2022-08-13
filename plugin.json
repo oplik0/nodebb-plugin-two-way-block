@@ -1,23 +1,29 @@
 {
-    "id": "nodebb-plugin-two-way-block",
-    "url": "https://github.com/oplik0/nodebb-plugin-two-way-block",
-    "library": "./library.js",
-    "hooks": [
-        {
-            "hook": "filter:user.blocks.filter",
-            "method": "filterBlocks"
-        },
-        {
-            "hook": "action:user.blocks.add",
-            "method": "addBlock"
-        },
-        {
-            "hook": "filter:teasers.get",
-            "method": "filterTeasers"
-        },
-        {
-            "hook": "action:user.blocks.remove",
-            "method": "removeBlock"
-        }
-    ]
+	"id": "nodebb-plugin-two-way-block",
+	"url": "https://github.com/oplik0/nodebb-plugin-two-way-block",
+	"library": "./library.js",
+	"hooks": [
+		{
+			"hook": "filter:user.blocks.filter",
+			"method": "filterBlocks"
+		},
+		{
+			"hook": "action:user.blocks.add",
+			"method": "addBlock"
+		},
+		{
+			"hook": "filter:teasers.get",
+			"method": "filterTeasers"
+		},
+		{
+			"hook": "action:user.blocks.remove",
+			"method": "removeBlock"
+		},
+		{
+			"hook": "filter:admin.cache.get",
+			"method": "getCache"
+		}
+	],
+	"languages": "public/languages",
+	"defaultLang": "en-GB"
 }

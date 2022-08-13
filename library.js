@@ -15,6 +15,7 @@ const cache = createCache({
 	maxSize: 4096,
 	sizeCalculation: n => n.length || 1,
 	ttl: 1000 * 60 * 60 * 24,
+	enabled: true,
 });
 twoWayBlock.addBlock = async function (data) {
 	const { uid, targetUid } = data;
@@ -118,5 +119,10 @@ async function getPreviousNonBlockedPost(postData, blockedSet) {
 	prevPost.user = await user.getUserFields(prevPost.uid, ['uid', 'username', 'userslug', 'picture']);
 	return prevPost;
 }
+
+twoWayBlock.getCache = function (caches) {
+	caches['two-way-block'] = cache;
+	return caches;
+};
 
 module.exports = twoWayBlock;
